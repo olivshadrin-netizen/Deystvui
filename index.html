@@ -3,59 +3,84 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Действуй — мой планировщик</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f6fa">
+<title>Действуй — личный помощник</title>
 <style>
-:root{--bg:#f5f6fa;--card:#fff;--text:#202435;--muted:#777e90;--accent:#6558e8;--line:#e9eaf1;--green:#159b72}
+:root{--bg:#f5f6fa;--card:#fff;--text:#202435;--muted:#7b8192;--accent:#6558e8;--line:#e8eaf1;--green:#14865f;--red:#d94d5c;--shadow:0 8px 28px #25264b08}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-button,input{font:inherit}
-.app{max-width:1000px;margin:auto;padding:24px 18px 100px}
-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:28px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:15px}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{max-width:850px;margin:auto;padding:20px 16px 45px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}
 .logo{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800}
-.logo-icon{background:var(--accent);color:white;padding:10px;border-radius:14px}
-.date{color:var(--muted);font-size:13px}
-h1{font-size:30px;margin:0 0 8px}
-.subtitle{color:var(--muted);margin:0 0 24px;line-height:1.5}
-.hero{background:linear-gradient(130deg,#6558e8,#8b75f3);color:white;padding:26px;border-radius:24px;margin-bottom:22px}
-.hero p{opacity:.9;margin:8px 0 18px}
-.hero button{background:white;color:#5145ca;border:0;padding:12px 16px;border-radius:12px;font-weight:bold;cursor:pointer}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-.stat,.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
-.stat strong{font-size:25px;display:block;margin-bottom:5px}
-.stat span{font-size:13px;color:var(--muted)}
-.panel{margin-bottom:18px}
-.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
-h2{font-size:19px;margin:0}
-.add-form{display:flex;gap:8px;margin-bottom:16px}
-.add-form input{flex:1;min-width:0;padding:13px;border:1px solid var(--line);border-radius:12px;outline-color:var(--accent)}
-.primary{background:var(--accent);color:white;border:0;border-radius:12px;padding:12px 16px;font-weight:bold;cursor:pointer}
-.task{display:flex;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid var(--line)}
-.task:last-child{border-bottom:0}
-.task input{width:19px;height:19px;accent-color:var(--green);flex-shrink:0}
-.task-text{flex:1;overflow-wrap:anywhere}
-.task.done .task-text{text-decoration:line-through;color:var(--muted)}
-.delete{border:0;background:transparent;color:#9a9eaa;font-size:20px;cursor:pointer}
-.empty{color:var(--muted);padding:14px 0}
-.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.nav button{background:white;border:1px solid var(--line);border-radius:12px;padding:10px 14px;cursor:pointer;color:var(--text)}
-.nav button.active{background:#eeeaff;color:var(--accent);border-color:#d8d0ff}
+.logo-icon{display:grid;place-items:center;width:43px;height:43px;background:var(--accent);color:#fff;border-radius:14px}
+.date-top{font-size:12px;color:var(--muted);text-align:right}
+.hero{padding:25px;border-radius:23px;background:linear-gradient(130deg,#5145cb,#8875f3);color:#fff;margin-bottom:20px}
+.hero .eyebrow{font-size:12px;opacity:.8;text-transform:uppercase;letter-spacing:1px}
+.hero h1{font-size:29px;line-height:1.2;margin:10px 0}
+.hero p{line-height:1.5;opacity:.9;margin:0 0 18px}
+.hero button{background:#fff;color:#5145cb;border:0;border-radius:12px;padding:12px 16px;font-weight:700}
+.nav{display:flex;gap:7px;overflow-x:auto;padding-bottom:6px;margin-bottom:20px}
+.nav button{white-space:nowrap;padding:11px 13px;border:1px solid var(--line);background:#fff;border-radius:12px;color:var(--text)}
+.nav button.active{background:#ece9ff;color:var(--accent);border-color:#d5ceff;font-weight:700}
 .view{display:none}.view.active{display:block}
-.tip{background:#eaf8f2;color:#187956;padding:16px;border-radius:14px;line-height:1.5}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
-@media(max-width:600px){.app{padding:18px 13px 90px}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:22px}.stat span{font-size:11px}h1{font-size:26px}.hero{padding:21px}.add-form{flex-wrap:wrap}.add-form input{flex-basis:100%}.add-form button{width:100%}}
+h2{font-size:20px;margin:0}
+.heading{margin:4px 0 7px}
+.subtitle{color:var(--muted);line-height:1.5;margin:0 0 19px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}
+.stat,.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.stat{padding:15px}
+.stat strong{display:block;font-size:25px;margin-bottom:5px}
+.stat span{font-size:12px;color:var(--muted)}
+.panel{padding:18px;margin-bottom:16px}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;color:var(--muted);font-weight:700}
+.field input,.field select,.search{width:100%;min-width:0;padding:12px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--text);outline-color:var(--accent)}
+.primary{background:var(--accent);color:#fff;border:0;border-radius:12px;padding:13px 16px;font-weight:700}
+.secondary{background:#f0efff;color:var(--accent);border:0;border-radius:10px;padding:10px 12px;font-weight:700}
+.full-button{width:100%;margin-top:14px}
+.toolbar{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar>*{flex:1;min-width:130px}
+.task{display:flex;align-items:flex-start;gap:11px;padding:14px 0;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:0;padding-bottom:0}
+.task:first-child{padding-top:0}
+.task-check{width:20px;height:20px;margin-top:3px;accent-color:var(--green);flex-shrink:0}
+.task-body{flex:1;min-width:0}
+.task-title{font-weight:700;overflow-wrap:anywhere;line-height:1.4}
+.task.done .task-title{text-decoration:line-through;color:var(--muted)}
+.task-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.tag{display:inline-block;font-size:11px;padding:5px 8px;border-radius:8px;background:#f0f1f6;color:#555c70}
+.tag.high{background:#fff0f0;color:#c23e4b}
+.tag.medium{background:#fff4df;color:#99600b}
+.tag.low{background:#e7f7ee;color:#18794e}
+.task-date{font-size:11px;color:var(--muted);margin-top:7px}
+.delete{border:0;background:transparent;color:#9a9eaa;font-size:22px;padding:0 4px}
+.empty{color:var(--muted);padding:14px 0;line-height:1.5}
+.tip{background:#e8f7ef;color:#18764e;padding:16px;border-radius:14px;line-height:1.5;margin:16px 0}
+.progress{height:8px;border-radius:10px;background:#e9e8f5;overflow:hidden;margin-top:12px}
+.progress>div{height:100%;background:var(--green);width:0;transition:width .2s}
+.section-title{margin:24px 0 10px}
+.small-note{font-size:12px;color:var(--muted);line-height:1.5}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:24px 0 8px}
+@media(max-width:520px){.app{padding:15px 12px 30px}.hero{padding:21px}.hero h1{font-size:25px}.stats{gap:7px}.stat{padding:12px 9px}.stat strong{font-size:22px}.stat span{font-size:11px}.panel{padding:15px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.date-top{max-width:110px}.nav button{padding:10px}}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
-  <div class="logo"><span class="logo-icon">Д</span> Действуй</div>
-  <div class="date" id="today"></div>
+  <div class="logo"><span class="logo-icon">Д</span><span>Действуй</span></div>
+  <div class="date-top" id="todayLabel"></div>
 </header>
 
 <section class="hero">
-  <h1>Твоя жизнь. Твои цели.</h1>
-  <p>Не нужно успеть всё. Достаточно сделать следующий шаг.</p>
+  <div class="eyebrow">Твой личный помощник</div>
+  <h1>Не всё сразу.<br>Шаг за шагом.</h1>
+  <p>Планируй важное, береги силы и двигайся к своим целям.</p>
   <button onclick="showView('now')">Что делать сейчас? →</button>
 </section>
 
@@ -66,101 +91,259 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </nav>
 
 <section id="home" class="view active">
-  <h2 style="margin-bottom:8px">Добро пожаловать!</h2>
-  <p class="subtitle">Начни с малого — каждый шаг имеет значение.</p>
+  <h2 class="heading">Твой день</h2>
+  <p class="subtitle">Добавляй задачи, выбирай сферу жизни и определяй приоритет.</p>
   <div class="stats">
     <div class="stat"><strong id="total">0</strong><span>Всего задач</span></div>
     <div class="stat"><strong id="completed">0</strong><span>Выполнено</span></div>
     <div class="stat"><strong id="remaining">0</strong><span>Осталось</span></div>
   </div>
   <div class="panel">
-    <div class="panel-head"><h2>Мои задачи</h2></div>
-    <form class="add-form" id="taskForm">
-      <input id="taskInput" placeholder="Например: 10 отжиманий" maxlength="180" required>
-      <button class="primary" type="submit">+ Добавить</button>
+    <div class="panel-head"><h2>Добавить задачу</h2></div>
+    <form id="taskForm">
+      <div class="form-grid">
+        <div class="field full">
+          <label for="taskInput">Что нужно сделать?</label>
+          <input id="taskInput" maxlength="180" placeholder="Например: подготовить предложение клиенту" required>
+        </div>
+        <div class="field">
+          <label for="category">Сфера жизни</label>
+          <select id="category">
+            <option>Работа</option>
+            <option>Бизнес</option>
+            <option>Семья</option>
+            <option>Здоровье</option>
+            <option>Духовное развитие</option>
+            <option>Творчество</option>
+            <option>Быт и личное</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="priority">Приоритет</label>
+          <select id="priority">
+            <option value="high">Важное</option>
+            <option value="medium" selected>Обычное</option>
+            <option value="low">Может подождать</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="taskDate">На какой день?</label>
+          <input id="taskDate" type="date" required>
+        </div>
+      </div>
+      <button class="primary full-button" type="submit">+ Добавить задачу</button>
     </form>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Мои задачи</h2></div>
+    <div class="toolbar">
+      <input class="search" id="search" placeholder="Найти задачу..." aria-label="Найти задачу">
+      <select class="search" id="categoryFilter" aria-label="Фильтр по сфере">
+        <option value="">Все сферы</option>
+        <option>Работа</option><option>Бизнес</option><option>Семья</option>
+        <option>Здоровье</option><option>Духовное развитие</option>
+        <option>Творчество</option><option>Быт и личное</option>
+      </select>
+    </div>
     <div id="taskList"></div>
   </div>
-  <div class="tip">💡 Совет дня: выбери одну важную задачу и удели ей 10 минут.</div>
+  <div class="tip">💡 Не нужно успеть всё. Выбери важное и оставь место для отдыха.</div>
 </section>
 
 <section id="now" class="view">
-  <h2 style="margin-bottom:8px">Что делать сейчас?</h2>
-  <p class="subtitle">Выбери одну небольшую задачу. Не перегружай себя.</p>
+  <h2 class="heading">Что делать сейчас?</h2>
+  <p class="subtitle">Начни с одной задачи, которая важна именно сегодня.</p>
   <div class="panel">
-    <div id="nextTask" class="empty">Добавь задачу на главной — и она появится здесь.</div>
-    <button class="primary" onclick="showView('home')">Посмотреть все задачи</button>
+    <div class="panel-head"><h2>Следующий шаг</h2></div>
+    <div id="nextTask" class="empty"></div>
+    <button class="primary full-button" onclick="showView('home')">Управлять задачами</button>
   </div>
-  <div class="tip">Если устал — выбери действие на 5 минут. Главное — начать.</div>
+  <div class="tip">Если мало сил, начни с небольшого шага на 5–10 минут.</div>
 </section>
 
 <section id="day" class="view">
-  <h2 style="margin-bottom:8px">План дня</h2>
-  <p class="subtitle">Твой план на сегодня — без лишней спешки.</p>
+  <h2 class="heading">План дня</h2>
+  <p class="subtitle" id="daySubtitle">Твои задачи на сегодня.</p>
   <div class="panel">
-    <div class="panel-head"><h2>Список на сегодня</h2></div>
-    <div id="dayList" class="empty">Пока задач нет. Добавь первую на главной.</div>
+    <div class="panel-head"><h2>На выбранный день</h2></div>
+    <div class="field">
+      <label for="dayPicker">Выбери дату</label>
+      <input id="dayPicker" type="date">
+    </div>
+    <div class="progress"><div id="progressBar"></div></div>
+    <p class="small-note" id="progressText">Добавь первую задачу.</p>
+    <div id="dayList"></div>
   </div>
-  <div class="tip">Оставляй время на отдых, семью и то, что важно лично для тебя.</div>
+  <button class="primary full-button" onclick="showView('home')">+ Добавить задачу</button>
 </section>
 
-<footer>Действуй в своём темпе · Твои задачи сохраняются на этом устройстве</footer>
+<footer>Действуй в своём темпе · Версия 2</footer>
 </div>
 
 <script>
 const KEY='deystvui_tasks_v1';
-let tasks=[];
-try{tasks=JSON.parse(localStorage.getItem(KEY)||'[]');if(!Array.isArray(tasks))tasks=[]}catch(e){tasks=[]}
 const $=id=>document.getElementById(id);
-$('today').textContent=new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'short'});
-function save(){try{localStorage.setItem(KEY,JSON.stringify(tasks))}catch(e){}}
+const today=localDate(new Date());
+let tasks=[];
+try{
+  const saved=JSON.parse(localStorage.getItem(KEY)||'[]');
+  if(Array.isArray(saved))tasks=saved.map(t=>({
+    id:t.id??(Date.now()+Math.random()),
+    text:String(t.text||''),
+    done:Boolean(t.done),
+    category:t.category||'Быт и личное',
+    priority:t.priority||'medium',
+    date:t.date||today
+  }));
+}catch(e){tasks=[]}
+
+function localDate(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function formatDate(s){
+  if(!s)return '';
+  const p=s.split('-');
+  return p.length===3?p[2]+'.'+p[1]+'.'+p[0]:s;
+}
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(tasks))}
+  catch(e){alert('Не удалось сохранить задачи в этом браузере.')}
+}
 function showView(id){
- document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));
- document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
- if(id==='now')renderNext();
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+  if(id==='now')renderNext();
+  if(id==='day')renderDay();
 }
-function addTask(text){
- tasks.push({id:Date.now()+Math.random(),text:text.trim(),done:false});
- save();render();
-}
+$('todayLabel').textContent=new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
+$('taskDate').value=today;
+$('dayPicker').value=today;
+
 $('taskForm').addEventListener('submit',e=>{
- e.preventDefault();const input=$('taskInput');if(!input.value.trim())return;
- addTask(input.value);input.value='';input.focus();
+  e.preventDefault();
+  const text=$('taskInput').value.trim();
+  if(!text)return;
+  tasks.push({
+    id:Date.now()+Math.random(),
+    text,
+    category:$('category').value,
+    priority:$('priority').value,
+    date:$('taskDate').value||today,
+    done:false
+  });
+  save();
+  $('taskInput').value='';
+  $('taskInput').focus();
+  render();
 });
+$('search').addEventListener('input',render);
+$('categoryFilter').addEventListener('change',render);
+$('dayPicker').addEventListener('change',renderDay);
+
 function toggleTask(id){
- tasks=tasks.map(t=>t.id===id?{...t,done:!t.done}:t);save();render();
+  tasks=tasks.map(t=>t.id===id?{...t,done:!t.done}:t);
+  save();render();
 }
 function deleteTask(id){
- tasks=tasks.filter(t=>t.id!==id);save();render();
+  if(!confirm('Удалить эту задачу?'))return;
+  tasks=tasks.filter(t=>t.id!==id);
+  save();render();
+}
+function priorityLabel(p){
+  return p==='high'?'Важное':p==='low'?'Может подождать':'Обычное';
 }
 function makeTask(t){
- const row=document.createElement('div');row.className='task'+(t.done?' done':'');
- const check=document.createElement('input');check.type='checkbox';check.checked=t.done;check.setAttribute('aria-label','Отметить выполнение');check.addEventListener('change',()=>toggleTask(t.id));
- const label=document.createElement('span');label.className='task-text';label.textContent=t.text;
- const del=document.createElement('button');del.className='delete';del.textContent='×';del.title='Удалить задачу';del.addEventListener('click',()=>deleteTask(t.id));
- row.append(check,label,del);return row;
-}
-function renderNext(){
- const box=$('nextTask');box.replaceChildren();
- const t=tasks.find(x=>!x.done);
- if(!t){box.className='empty';box.textContent=tasks.length?'Все задачи выполнены — отличная работа!':'Добавь задачу на главной — и она появится здесь.';return}
- box.className='';box.appendChild(makeTask(t));
- const p=document.createElement('p');p.className='subtitle';p.textContent='Начни с этой задачи. Остальное подождёт.';box.appendChild(p);
+  const row=document.createElement('div');
+  row.className='task'+(t.done?' done':'');
+  const check=document.createElement('input');
+  check.type='checkbox';check.className='task-check';check.checked=t.done;
+  check.setAttribute('aria-label','Отметить выполнение');
+  check.addEventListener('change',()=>toggleTask(t.id));
+  const body=document.createElement('div');body.className='task-body';
+  const title=document.createElement('div');title.className='task-title';title.textContent=t.text;
+  const meta=document.createElement('div');meta.className='task-meta';
+  const cat=document.createElement('span');cat.className='tag';cat.textContent=t.category;
+  const pri=document.createElement('span');pri.className='tag '+t.priority;pri.textContent=priorityLabel(t.priority);
+  meta.append(cat,pri);
+  const date=document.createElement('div');date.className='task-date';date.textContent='📅 '+formatDate(t.date);
+  body.append(title,meta,date);
+  const del=document.createElement('button');del.className='delete';del.textContent='×';
+  del.title='Удалить задачу';del.setAttribute('aria-label','Удалить '+t.text);
+  del.addEventListener('click',()=>deleteTask(t.id));
+  row.append(check,body,del);
+  return row;
 }
 function render(){
- $('total').textContent=tasks.length;
- $('completed').textContent=tasks.filter(t=>t.done).length;
- $('remaining').textContent=tasks.filter(t=>!t.done).length;
- const list=$('taskList');list.replaceChildren();
- if(!tasks.length){const p=document.createElement('div');p.className='empty';p.textContent='Пока нет задач. Добавь первую выше!';list.appendChild(p)}
- else tasks.forEach(t=>list.appendChild(makeTask(t)));
- const day=$('dayList');day.replaceChildren();
- if(!tasks.length){day.className='empty';day.textContent='Пока задач нет. Добавь первую на главной.'}
- else{day.className='';tasks.forEach(t=>day.appendChild(makeTask(t)))}
- renderNext();
+  $('total').textContent=tasks.length;
+  $('completed').textContent=tasks.filter(t=>t.done).length;
+  $('remaining').textContent=tasks.filter(t=>!t.done).length;
+  const list=$('taskList');list.replaceChildren();
+  const query=$('search').value.trim().toLowerCase();
+  const cat=$('categoryFilter').value;
+  const filtered=tasks.filter(t=>
+    t.text.toLowerCase().includes(query)&&(!cat||t.category===cat)
+  ).sort((a,b)=>{
+    if(a.done!==b.done)return Number(a.done)-Number(b.done);
+    const p={high:0,medium:1,low:2};
+    return (p[a.priority]??1)-(p[b.priority]??1)||a.date.localeCompare(b.date);
+  });
+  if(!filtered.length){
+    const empty=document.createElement('div');empty.className='empty';
+    empty.textContent=tasks.length?'По этому фильтру задач нет.':'Пока задач нет. Добавь первую выше!';
+    list.appendChild(empty);
+  }else filtered.forEach(t=>list.appendChild(makeTask(t)));
+  renderNext();renderDay();
+}
+function renderNext(){
+  const box=$('nextTask');box.replaceChildren();
+  const candidates=tasks.filter(t=>!t.done).sort((a,b)=>{
+    const overdueA=a.date<today?0:1,overdueB=b.date<today?0:1;
+    if(overdueA!==overdueB)return overdueA-overdueB;
+    const p={high:0,medium:1,low:2};
+    return (p[a.priority]??1)-(p[b.priority]??1)||a.date.localeCompare(b.date);
+  });
+  if(!candidates.length){
+    box.className='empty';
+    box.textContent='Незавершённых задач нет. Можно отдохнуть или добавить новое дело!';
+    return;
+  }
+  box.className='';
+  const t=candidates[0];
+  if(t.date>today){
+    const note=document.createElement('p');note.className='small-note';
+    note.textContent='Ближайшая запланированная задача:';
+    box.appendChild(note);
+  }else if(t.date<today){
+    const note=document.createElement('p');note.className='small-note';
+    note.textContent='Эта задача просрочена — проверь, актуальна ли она:';
+    box.appendChild(note);
+  }
+  box.appendChild(makeTask(t));
+  const note=document.createElement('p');note.className='small-note';
+  note.textContent='Подсказка учитывает дату и приоритет. Пока это простая логика, не ИИ.';
+  box.appendChild(note);
+}
+function renderDay(){
+  const selected=$('dayPicker').value||today;
+  $('daySubtitle').textContent=selected===today?'Твои задачи на сегодня.':'Задачи на '+formatDate(selected)+'.';
+  const list=$('dayList');list.replaceChildren();
+  const daily=tasks.filter(t=>t.date===selected).sort((a,b)=>{
+    if(a.done!==b.done)return Number(a.done)-Number(b.done);
+    const p={high:0,medium:1,low:2};
+    return (p[a.priority]??1)-(p[b.priority]??1);
+  });
+  const done=daily.filter(t=>t.done).length;
+  $('progressBar').style.width=(daily.length?done/daily.length*100:0)+'%';
+  $('progressText').textContent=daily.length?`Выполнено ${done} из ${daily.length} задач.`:'На этот день задач пока нет.';
+  if(!daily.length){
+    list.className='empty';list.textContent='Добавь задачу и выбери для неё эту дату.';
+  }else{
+    list.className='';
+    daily.forEach(t=>list.appendChild(makeTask(t)));
+  }
 }
 render();
 </script>
 </body>
 </html>
-
